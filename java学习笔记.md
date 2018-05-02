@@ -29,3 +29,26 @@
 ▪ Segmentfault：https://segmentfault.com/ 国内技术问答网站
 ▪ 自媒体：码农周刊、开发者头条
 ▪ Github： https://github.com/ 能找到很多有用的源码
+------------------------------------
+一些环境变量的配置
+ 1、JDK8环境
+• http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-
+2133151.html
+• 2、开发工具 IDEA Intellij（目前很多公司都逐渐转向这个开发工具）
+• https://www.jetbrains.com/idea/download
+• 可以申请免费的教育license，只要是有edu.cn后缀的邮箱都可申请
+• https://www.jetbrains.com/shop/eform/students
+• 3、mysql数据库+MySQLWorkBench
+• https://dev.mysql.com/downloads/installer/
+• 设置一个dev账户，可以本地/远程连接数据库（具有创建修改更新库、表）
+• 4、tomcat环境
+• https://tomcat.apache.org/download-80.cgi
+• http://mirrors.shu.edu.cn/apache/tomcat/tomcat-8/v8.5.28/bin/apache-tomcat-
+8.5.28.zip
+• 5、git环境
+• 本地Git：Git 官方站点下载
+• http://git-scm.com/downloads （支持Mac/Windows/Linux/Solaris）
+• 本地客户端：（可以申请一个通用共享的license）GUI客户端： 建议安装 SourceTree ：
+• http://www.sourcetreeapp.com
+• 6、maven环境
+• http://maven.apache.org/download.cgi
