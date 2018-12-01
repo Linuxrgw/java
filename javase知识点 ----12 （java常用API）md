@@ -1,0 +1,110 @@
+# java
+数学类
+1、Math---在java.lang包下
+   被final修饰，不能被继承
+   所有的方法都是静态方法，直接通过类名就可以调用
+   有两个静态常量  E和PI
+
+2、常用方法
+   System.out.println(Math.PI);
+   System.out.println(Math.abs(-1));
+   System.out.println(Math.round(12.1));  //四舍五入
+   System.out.println(Math.round(12.5));
+   System.out.println(Math.random());  //0-1之间的随机数
+
+时间类
+       //获取日历对象--日历的类是抽象类，不能直接创建对象，通过getInstance方法来获取日历对象
+    Calendar cal = Calendar.getInstance();
+    System.out.println(cal.get(Calendar.YEAR)); //年
+    System.out.println(cal.get(Calendar.MONTH)+1);   //月份取值是0-11
+    System.out.println(cal.get(Calendar.DATE)); //日
+    System.out.println(cal.get(Calendar.HOUR)); //时
+    System.out.println(cal.get(Calendar.MINUTE)); //分
+    System.out.println(cal.get(Calendar.SECOND));//秒
+    
+    
+    
+    //时间---转成字符串
+    //创建SimpleDateFormat对象
+          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        //获取当前的系统时间
+       Date date = new Date();
+       System.out.println(date);
+     //格式转换
+          System.out.println(sdf.format(date));
+    
+    
+    
+        //字符串----转成时间类型
+        String str = "2002-5-1 8:12:9";
+        try {
+        //把字符串转换成Date对象，如果格式不匹配抛出转换异常
+        Date date2 =  sdf.parse(str);
+        System.out.println(date2);
+    } catch (ParseException e) {
+        e.printStackTrace();
+    }
+
+
+大整数类
+
+在java.math包下
+什么情况下使用？计算时，如果超出long的范围，可以使用大整数对象
+怎么使用？
+   步骤1：将超出范围的整数用String声明；
+   步骤2：将字符串包装成BigInteger对象
+   步骤3：调用BigInteger类的方法，进行数学运算
+常用方法：
+add(BigInteger val) 返回其值为 (this + val) 的 BigInteger。
+subtract(BigInteger val) 返回其值为 (this - val) 的 BigInteger。
+multiply(BigInteger val) 返回其值为 (this * val) 的 BigInteger。
+divide(BigInteger val) 返回其值为 (this / val) 的 BigInteger。
+remainder(BigInteger val) 返回其值为 (this % val) 的 BigInteger
+mod(BigInteger m) 返回其值为 (this mod m) 的 BigInteger。
+
+
+随机类
+
+构造方法
+Random()     创建Random对象，该对象每次生成的随机数不同
+Random(long seed)     使用一个种子参数创建Random对象，参数相同的Random对象，每次生成的随机数相同。
+ 
+常用方法
+int nextInt()     生成int类型随机数，数值范围不定；
+int nextInt(int n)     生成int类型随机数，数值范围[0,n)；
+long nextLong()     生成long类型随机数
+float nextFloat()     生成float类型随机数，数值范围[0,1.0)；
+double nextDouble()     生成double类型随机数，数值范围[0,1.0)；
+boolean nextBoolean()     生成boolean类型随机数；
+void setSeed(long seed)     修改Random对象的种子值
+
+  //生成订单编号
+  public static String getOrderNum(){
+      Date date = new Date(); //获取系统当前时间
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
+      String str =  sdf.format(date);
+      
+      //获取5位随机数
+      Random random = new Random();
+      int num = (int)(random.nextDouble()*(99999-10000+1)+10000);
+      System.out.println(num);
+      return str+num;
+  }
+  
+  //生成四位校验码
+  public static String getNum(){
+     Random random = new Random();
+     char[] cs = {'a','b','c','F','H','3','6','中','过','你','好','@'};
+     StringBuffer sbf = new StringBuffer();
+     for (int i = 0; i < 4; i++) {
+        sbf.append(cs[random.nextInt(cs.length)]);
+    }
+     return sbf.toString();
+  }
+
+jar包：右击将要打包的文件-->Export-->Java-->JAR file
+--------------------- 
+作者：Ren_gw 
+来源：CSDN 
+原文：https://blog.csdn.net/Ren_gw/article/details/84430078 
+版权声明：本文为博主原创文章，转载请附上博文链接！
