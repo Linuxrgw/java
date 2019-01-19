@@ -1,0 +1,134 @@
+java框架篇---Struts入门
+首先理解Struts与MVC的关系
+在传统的MVC模式中所有的请求都要先交给Servlet处理，之后由Servlet调用JavaBean，并将结果交给JSP中进行显示。结构图如下
+
+Struts是Apache基金组织中Jakarta项目组的一个开源（Open Source）项目，主要就是实现了MVC设计模式，在Struts中有自己的控制器（ActionServlet），同时也提供了各种常用的页面标签库以减少JSP页面中的Scriptlet代码，Struts实际上就属于在传统技术上发展起来的一种新的应用模式，其操作的本质依然还是JSP、Servlet、JavaBean等技术的应用，Struts的体系结构图如下。
+
+MVC与Struts各个组件的对应关系 
+
+理解以上以后
+我们开始学习配置Struts开发环境
+Struts属于一套单独的开发包，所以首先要从Apache的Jakart项目（http://jakarta.apache.org/）上下载最新的Struts开发包（http://struts.apache.org/），本人使用的是Struts 2.1的开发包，（struts-2.1.8.1-all.jar）
+将Struts开发包中的lib目录下的全部*.jar包拷贝到%TOMCAT_HOME%\lib目录之中,也可使用myeclipse工具直接导入Struts包，下图是包目录
+
+然后配置web.xml文件
+复制代码
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>Struts1</display-name>
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>*.action</url-pattern>
+  </filter-mapping>
+</web-app>
+复制代码
+配置struts-config.xml文件内容下面具体讲解
+
+开发第一个Struts程序 
+
+web.xml如上
+
+struts-config.xml
+
+复制代码
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<constant name="struts.devMode" value="true" />
+         <!-- 指定每次请求到达，重新加载资源文件 -->
+        <constant name="struts.i18n.reload" value="true"/>
+        <!-- 指定每次配置文件更改后，自动重新加载 -->
+         <constant name="struts.configuration.xml.reload" value="true"/>
+        <!-- 把主题配置为simple -->
+        <constant name="struts.ui.theme" value="simple"/>
+         <package name="Struts" extends="struts-default" namespace="/">
+         <action name="login" class="com.oumyye.action.LoginAction">
+             <result name="success">/success.jsp</result>
+         </action>
+         </package>
+</struts>    
+复制代码
+LoginAction.java
+
+复制代码
+package com.oumyye.action;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+/**
+ * 
+ * @author 偶my耶
+ *    action
+ */
+public class LoginAction extends ActionSupport {
+
+    /**
+     * 
+     */
+    HttpServletRequest request = ServletActionContext.getRequest();
+    private static final long serialVersionUID = 1L;
+    @Override
+    public String execute() throws Exception {
+    
+        String  name=request.getParameter("user_name");//获得user_name
+        request.setAttribute("name",name);//设值
+        return SUCCESS;
+    }
+}
+复制代码
+jsp界面
+
+index.jsp
+
+复制代码
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ 
+  <body>
+    <form action="login.action">
+        姓名：<input type="text" name="user_name">
+        <input type="submit" value="跳转">
+    </form>
+  </body>
+</html>
+复制代码
+success.jsp
+
+复制代码
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'index.jsp' starting page</title>
+
+  </head>
+  <%    String name=(String)request.getAttribute("name");
+  %>
+  <body>
+  欢迎<%=name %>
+    跳转成功！！
+  </body>
+</html>
+复制代码
+Struts工作原理 
+
+
+
+Struts是MVC设计模式的一种具体的实现；
+Struts中的核心类就是ActionForm、Action，都需要在struts-config.xml文件中进行配置。
+	http://www.cnblogs.com/oumyye/
